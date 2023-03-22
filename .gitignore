@@ -1,0 +1,87 @@
+class Book:
+  def __init__(self,*a):
+    self.st=f"{a[0]} ({a[1]}) by {a[2]}"
+
+class Reader:
+  def __init__(self,n):
+    self.rd={}
+  
+  def add_review(self,ml,rate,com):
+    self.rd[ml.st]=rate
+    
+
+class BookDirectory:
+  def __init__(self):
+    self.high={}
+    self.value=0
+  
+  def add_book(self,mlb):
+    pass
+
+  def add_reader(self,mlr):
+    for k,v in mlr.rd.items():
+      self.value=v
+      if k not in self.high.keys():
+        self.high[k]=self.value 
+      else:
+        self.high[k]=self.high[k]+self.value
+
+  def get_highest_rated_books(self,n):
+    l2=[]
+    for y in self.high.values():
+      l2.append(y)
+    l2.sort(reverse=True)
+    l3=l2[0:n:]
+    key=[]
+    for item in l3: 
+      for p,q in self.high.items():
+        if item==q:
+          key.append(p)
+    return key
+
+
+Book1 = Book("Harry Potter and the Goblet of Fire", 2000, "J. K. Rowling")
+Book2 = Book("If Tomorrow Comes", 1985, "Sidney Sheldon")
+Book3 = Book("Diary of a Wimpy Kid", 2007, "Jeff Kinney")
+Book4 = Book("Sapiens: A Brief History of Humankind", 2011, "Yuval Noah Harari")
+
+
+directory = BookDirectory()
+directory.add_book(Book1)
+directory.add_book(Book2)
+directory.add_book(Book3)
+directory.add_book(Book4)
+
+
+Reader1 = Reader("Bob")
+Reader1.add_review(Book1, 5, "The best book I ever read!")
+Reader1.add_review(Book2, 4, "One of the best thrillers")
+Reader2 = Reader("Carol")
+Reader2.add_review(Book1, 4, "Love a good magical story!")
+Reader2.add_review(Book3, 3, "I somewhat liked the book but the genre is not my type.")
+Reader2.add_review(Book4, 5, "Beautifully written.")
+Reader3 = Reader("Harry")
+Reader3.add_review(Book4, 5, "What a fantastic book!")
+
+
+directory.add_reader(Reader1)
+directory.add_reader(Reader2)
+directory.add_reader(Reader3)
+highest_rated_books = directory.get_highest_rated_books(2)
+
+
+print('-------------------------------')
+print("Highest rated books:")
+for book in highest_rated_books:
+    print(book)
+print('-------------------------------')
+
+
+highest_rated_books = directory.get_highest_rated_books(3)
+
+
+print('-------------------------------')
+print("Highest rated books:")
+for book in highest_rated_books:
+    print(book)
+print('-------------------------------')
